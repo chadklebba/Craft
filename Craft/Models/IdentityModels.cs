@@ -29,5 +29,14 @@ namespace Craft.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Craft.Customer> Customers { get; set; }
+
+        public System.Data.Entity.DbSet<Craft.Beer> Beers { get; set; }
+
+        public System.Data.Entity.DbSet<Craft.Distributor> Distributors { get; set; }
+
+        public System.Data.Entity.DbSet<Craft.Bar> Bars { get; set; }
+        public System.Data.Entity.DbSet<Craft.Distributor_Beer> Distributor_Beers { get; set; }
     }
 }

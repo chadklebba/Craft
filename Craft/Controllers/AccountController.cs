@@ -9,12 +9,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Craft.Models;
+using Craft.Models.Craft;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Craft.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -149,21 +152,51 @@ namespace Craft.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            Customer customer = new Customer();
+            Distributor distributor = new Distributor();
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                
+                if (model.usertype == "Customer")
+                {
+                    customer.Name = model.Name;
+                    customer.Street = model.Street;
+                    customer.City = model.City;
+                    customer.State = model.State;
+                    customer.ZipCode = model.ZipCode;
+                    customer.EmailAddress = model.Email;
+                }
+                if (model.usertype == "Distributor")
+                {
+                    distributor.Name = model.Name;
+                    distributor.Street = model.Street;
+                    distributor.City = model.City;
+                    distributor.State = model.State;
+                    distributor.ZipCode = model.ZipCode;
+                    distributor.EmailAddress = model.Email;
+                }
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    if (model.usertype == "Customer")
+                    {
+                        customer.UserId = user.Id;
+                        db.Customers.Add(customer);
+                        userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Customer");
+                    }
+                    if (model.usertype == "Distributor")
+                    {
+                        distributor.UserId = user.Id;
+                        db.Distributors.Add(distributor);
+                        userManager.AddToRole(userManager.FindByEmail(user.Email).Id, "Distributor");
+                    }
+                    db.SaveChanges();
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }

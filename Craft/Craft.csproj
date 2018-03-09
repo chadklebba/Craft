@@ -196,12 +196,65 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BarsController.cs" />
+    <Compile Include="Controllers\BeersController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DistributorsController.cs" />
+    <Compile Include="Controllers\Distributor_BeerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803071921376_initial.cs" />
+    <Compile Include="Migrations\201803071921376_initial.Designer.cs">
+      <DependentUpon>201803071921376_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803081417260_added more tables.cs" />
+    <Compile Include="Migrations\201803081417260_added more tables.Designer.cs">
+      <DependentUpon>201803081417260_added more tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803081547003_bars.cs" />
+    <Compile Include="Migrations\201803081547003_bars.Designer.cs">
+      <DependentUpon>201803081547003_bars.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803081550093_bar2.cs" />
+    <Compile Include="Migrations\201803081550093_bar2.Designer.cs">
+      <DependentUpon>201803081550093_bar2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803081623388_added more to distributor.cs" />
+    <Compile Include="Migrations\201803081623388_added more to distributor.Designer.cs">
+      <DependentUpon>201803081623388_added more to distributor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803081632229_added more to distributor2.cs" />
+    <Compile Include="Migrations\201803081632229_added more to distributor2.Designer.cs">
+      <DependentUpon>201803081632229_added more to distributor2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803082047459_register update.cs" />
+    <Compile Include="Migrations\201803082047459_register update.Designer.cs">
+      <DependentUpon>201803082047459_register update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803091333005_editing beer.cs" />
+    <Compile Include="Migrations\201803091333005_editing beer.Designer.cs">
+      <DependentUpon>201803091333005_editing beer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803091559233_changed Ids to int.cs" />
+    <Compile Include="Migrations\201803091559233_changed Ids to int.Designer.cs">
+      <DependentUpon>201803091559233_changed Ids to int.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803091607163_added distributor_beer table.cs" />
+    <Compile Include="Migrations\201803091607163_added distributor_beer table.Designer.cs">
+      <DependentUpon>201803091607163_added distributor_beer table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Craft\Bar.cs" />
+    <Compile Include="Models\Craft\Bar_Beer.cs" />
+    <Compile Include="Models\Craft\Beer.cs" />
+    <Compile Include="Models\Craft\Customer.cs" />
+    <Compile Include="Models\Craft\Distributor.cs" />
+    <Compile Include="Models\Craft\Distributor_Beer.cs" />
+    <Compile Include="Models\Craft\Favorite.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,6 +263,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\craft.jpeg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -267,6 +321,35 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Beers\Create.cshtml" />
+    <Content Include="Views\Beers\Delete.cshtml" />
+    <Content Include="Views\Beers\Details.cshtml" />
+    <Content Include="Views\Beers\Edit.cshtml" />
+    <Content Include="Views\Beers\Index.cshtml" />
+    <Content Include="Views\Distributors\Create.cshtml" />
+    <Content Include="Views\Distributors\Delete.cshtml" />
+    <Content Include="Views\Distributors\Details.cshtml" />
+    <Content Include="Views\Distributors\Edit.cshtml" />
+    <Content Include="Views\Distributors\Index.cshtml" />
+    <Content Include="Views\Bars\Create.cshtml" />
+    <Content Include="Views\Bars\Delete.cshtml" />
+    <Content Include="Views\Bars\Details.cshtml" />
+    <Content Include="Views\Bars\Edit.cshtml" />
+    <Content Include="Views\Bars\Index.cshtml" />
+    <Content Include="Views\Bars\AddBeers.cshtml" />
+    <Content Include="Views\Distributor_Beer\Create.cshtml" />
+    <Content Include="Views\Distributor_Beer\Delete.cshtml" />
+    <Content Include="Views\Distributor_Beer\Details.cshtml" />
+    <Content Include="Views\Distributor_Beer\Edit.cshtml" />
+    <Content Include="Views\Distributor_Beer\Index.cshtml" />
+    <Content Include="Views\Beers\BeerList.cshtml" />
+    <Content Include="Views\Bars\BarList.cshtml" />
+    <Content Include="Views\Bars\AddNewBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -278,6 +361,38 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803071921376_initial.resx">
+      <DependentUpon>201803071921376_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803081417260_added more tables.resx">
+      <DependentUpon>201803081417260_added more tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803081547003_bars.resx">
+      <DependentUpon>201803081547003_bars.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803081550093_bar2.resx">
+      <DependentUpon>201803081550093_bar2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803081623388_added more to distributor.resx">
+      <DependentUpon>201803081623388_added more to distributor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803081632229_added more to distributor2.resx">
+      <DependentUpon>201803081632229_added more to distributor2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803082047459_register update.resx">
+      <DependentUpon>201803082047459_register update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803091333005_editing beer.resx">
+      <DependentUpon>201803091333005_editing beer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803091559233_changed Ids to int.resx">
+      <DependentUpon>201803091559233_changed Ids to int.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803091607163_added distributor_beer table.resx">
+      <DependentUpon>201803091607163_added distributor_beer table.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

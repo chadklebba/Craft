@@ -4935,6 +4935,7 @@ a.list-group-item.active > .badge,
   line-height: 2.1428571435;
   color: inherit;
   background-color: #eeeeee;
+  
 }
 
 .jumbotron h1 {
@@ -4952,7 +4953,7 @@ a.list-group-item.active > .badge,
 
 @media screen and (min-width: 768px) {
   .jumbotron {
-    padding-top: 48px;
+    padding-top: 4px;
     padding-bottom: 48px;
   }
   .container .jumbotron {
