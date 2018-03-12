@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Craft.Models;
 using Craft.Models.Craft;
+using Microsoft.AspNet.Identity;
 
 namespace Craft.Controllers
 {
@@ -24,19 +25,79 @@ namespace Craft.Controllers
         public ActionResult BarList()
         {
             List<Bar> BarList = db.Bars.OrderBy(x=>x.BarName).ToList();
+            List<Distributor> distributors = db.Distributors.ToList();
+            var currentUserId = User.Identity.GetUserId();
+            var currentDist = (from d in distributors where d.UserId == currentUserId select d.DistributorId).FirstOrDefault();
+            List<Distributor_Bar> MyBarIds = db.Distributor_Bars.Where(x => x.DistributorId == currentDist).ToList();
+            List<Bar> MyBarList = new List<Bar>();
+            for (int i = 0; i < MyBarIds.Count; i++)
+            {
+                for (int j = 0; j < BarList.Count; j++)
+                {
+                    if (BarList[j].BarId == MyBarIds[i].BarId)
+                    {
+                        MyBarList.Add(BarList[j]);
+                    }
+                }
+            }
 
-
-            return View(BarList);
+            return View(MyBarList);
         }
-        //    List<Beer> AllBeers =
-         
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult AddBeers([Bind(Include = "")])
-        //{
-        //    return RedirectToAction("");
-        //}
+       
+        public ActionResult AddBars()
+        {
+            AddBarViewModel Bars = new AddBarViewModel();
+            List<SelectListItem> AvailableBarNames = new List<SelectListItem>(); 
+            List<Distributor> distributors = db.Distributors.ToList();
+            List<Bar> AllBars = db.Bars.ToList();
+            List<Bar> AvailableBars = new List<Bar>();
+            
+            var currentUserId = User.Identity.GetUserId();
+            var currentDist = (from d in distributors where d.UserId == currentUserId select d.DistributorId).FirstOrDefault();
+            List<Distributor_Bar> MyBarIds = db.Distributor_Bars.Where(x => x.DistributorId == currentDist).ToList();
+            for (int i = 0; i < MyBarIds.Count; i++)
+            {
+                for (int j=0; j < AllBars.Count; j++)
+                {
+                    if (MyBarIds[i].BarId == AllBars[j].BarId)
+                    {
+                        Bars.AddedBars.Add(AllBars[j]);
+                    }
+                }
+            }
+            AvailableBars = AllBars.Except(Bars.AddedBars).ToList();
+            for (int k = 0; k < AvailableBars.Count; k++)
+            {
+                SelectListItem item = new SelectListItem
+                {
+                    Text = AvailableBars[k].BarName,
+                    Value = AvailableBars[k].BarId.ToString()
+                };
+                Bars.AvailableBarNames.Add(item);
+
+            }
+            
+            return View("AddBars",Bars);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddBars(AddBarViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                List<Distributor> distributors = db.Distributors.ToList();
+                var currentUserId = User.Identity.GetUserId();
+                var currentDist = (from d in distributors where d.UserId == currentUserId select d.DistributorId).FirstOrDefault();
+                Distributor_Bar distributorBar = new Distributor_Bar();
+                distributorBar.BarId = model.BarID;
+                distributorBar.DistributorId = currentDist;
+                db.Distributor_Bars.Add(distributorBar);
+                db.SaveChanges();
+                return RedirectToAction("BarList");
+            }
+
+            return RedirectToAction("BarList", "Bars");
+        }
         // GET: Bars/Details/5
         public ActionResult Details(int? id)
         {
@@ -59,8 +120,7 @@ namespace Craft.Controllers
         }
 
         // POST: Bars/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BarId,BarName,Address")] Bar bar)
