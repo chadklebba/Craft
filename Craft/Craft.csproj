@@ -250,9 +250,22 @@
     <Compile Include="Migrations\201803121353382_adding distributor_bar.Designer.cs">
       <DependentUpon>201803121353382_adding distributor_bar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803131233553_key added in Distributor_Bar.cs" />
+    <Compile Include="Migrations\201803131233553_key added in Distributor_Bar.Designer.cs">
+      <DependentUpon>201803131233553_key added in Distributor_Bar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803131530273_Bar_Beer addition.cs" />
+    <Compile Include="Migrations\201803131530273_Bar_Beer addition.Designer.cs">
+      <DependentUpon>201803131530273_Bar_Beer addition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803131826211_Distributor_BeerId.cs" />
+    <Compile Include="Migrations\201803131826211_Distributor_BeerId.Designer.cs">
+      <DependentUpon>201803131826211_Distributor_BeerId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddBarViewModel.cs" />
+    <Compile Include="Models\AddBeerViewModel.cs" />
     <Compile Include="Models\Craft\Bar.cs" />
     <Compile Include="Models\Craft\Bar_Beer.cs" />
     <Compile Include="Models\Craft\Beer.cs" />
@@ -261,6 +274,7 @@
     <Compile Include="Models\Craft\Distributor_Bar.cs" />
     <Compile Include="Models\Craft\Distributor_Beer.cs" />
     <Compile Include="Models\Craft\Favorite.cs" />
+    <Compile Include="Models\CustBarSearchViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -358,6 +372,8 @@
     <Content Include="Views\Bars\BarList.cshtml" />
     <Content Include="Views\Bars\AddNewBar.cshtml" />
     <Content Include="Views\Bars\AddBars.cshtml" />
+    <Content Include="Views\Bars\CustBarSearch.cshtml" />
+    <Content Include="Views\Bars\MapView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -403,6 +419,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803121353382_adding distributor_bar.resx">
       <DependentUpon>201803121353382_adding distributor_bar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803131233553_key added in Distributor_Bar.resx">
+      <DependentUpon>201803131233553_key added in Distributor_Bar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803131530273_Bar_Beer addition.resx">
+      <DependentUpon>201803131530273_Bar_Beer addition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803131826211_Distributor_BeerId.resx">
+      <DependentUpon>201803131826211_Distributor_BeerId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

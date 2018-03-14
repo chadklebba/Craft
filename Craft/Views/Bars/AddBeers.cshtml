@@ -1,46 +1,57 @@
-﻿@model Craft.Models.Craft.Bar
+﻿@model Craft.Models.AddBeerViewModel
 
 @{
     ViewBag.Title = "AddBeers";
 }
 
-<h2>Add Beers to Bar</h2>
+<h2>Add a Beer</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(m=>m.BarId)
     <div class="form-horizontal">
-        <h4>Bar</h4>
+        <h4>Beer</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.BarName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(m => m.AvailableBeerNames, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BarName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BarName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(m => m.BeerId, Model.AvailableBeerNames, "--Select A Beer From List--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AvailableBeerNames, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Add" class="btn btn-default" />
             </div>
         </div>
     </div>
+<br />
+<br />
+<h2>This Bar's Beer List</h2>
+<div class="form-horizontal">
+    <table class="table">
+       
+        @foreach (var item in Model.AddedBeers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BeerName)
+                </td>
+            </tr>
+            
+        }
+
+    </table>
+</div>
 }
 
+
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "BarList")
 </div>
 
 @section Scripts {

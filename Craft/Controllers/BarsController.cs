@@ -43,7 +43,58 @@ namespace Craft.Controllers
 
             return View(MyBarList);
         }
-       
+        [HttpGet]
+        public ActionResult ChooseBeer()
+        {
+            CustBarSearchViewModel Beers = new CustBarSearchViewModel();
+            List<Beer> BeerList = db.Beers.ToList();
+            List<Bar_Beer> Bar_Beers = db.Bar_Beers.ToList();
+            for (int k = 0; k < BeerList.Count; k++)
+            {
+                SelectListItem item = new SelectListItem
+                {
+                    Text = BeerList[k].BeerName,
+                    Value = BeerList[k].BeerId.ToString()
+                };
+                Beers.BeerNames.Add(item);
+
+            }
+            return View("CustBarSearch", Beers);
+            
+        }
+        [HttpPost]
+        public ActionResult ChooseBeer(CustBarSearchViewModel model)
+        {
+            return RedirectToAction("MapView", new { id = int.Parse(model.BeerId) });
+        }
+        
+        public ActionResult MapView(int id)
+        {
+            CustBarSearchViewModel Model = new CustBarSearchViewModel();
+            List<Bar_Beer> Bar_Beers = db.Bar_Beers.Where(x => x.BeerId == id).ToList();
+            List<Bar> AllBars = db.Bars.ToList();
+            var currentUserId = User.Identity.GetUserId();
+            Customer CurrentCustomer = db.Customers.Where(x => x.UserId == currentUserId).FirstOrDefault();
+            string customerAddress = CurrentCustomer.Street + " " + CurrentCustomer.City + " " + CurrentCustomer.State + " " + CurrentCustomer.ZipCode;
+            List<string> stringAddresses = new List<string>();
+            List<Bar> BeerBars = new List<Bar>();
+            for ( int i = 0; i < Bar_Beers.Count; i++)
+            {
+                for (int j = 0; j < AllBars.Count; j++)
+                {
+                    if (Bar_Beers[i].BarId == AllBars[j].BarId)
+                    {
+                        BeerBars.Add(AllBars[j]);
+                        stringAddresses.Add(AllBars[j].Address);
+                    }
+                }
+                
+            }
+            Model.BeerBars = BeerBars;
+            Model.stringAddresses = stringAddresses;
+            return View("MapView", Model);
+        }
+
         public ActionResult AddBars()
         {
             AddBarViewModel Bars = new AddBarViewModel();
@@ -65,7 +116,7 @@ namespace Craft.Controllers
                     }
                 }
             }
-            AvailableBars = AllBars.Except(Bars.AddedBars).ToList();
+            AvailableBars = AllBars.Except(Bars.AddedBars).OrderBy(x=>x.BarName).ToList();
             for (int k = 0; k < AvailableBars.Count; k++)
             {
                 SelectListItem item = new SelectListItem
@@ -98,6 +149,94 @@ namespace Craft.Controllers
 
             return RedirectToAction("BarList", "Bars");
         }
+       
+        
+        public ActionResult RemoveBar(int? id)
+        {
+            Distributor_Bar distBar = db.Distributor_Bars.FirstOrDefault(i => i.BarId == id);
+            db.Distributor_Bars.Remove(distBar);
+            db.SaveChanges();
+            return RedirectToAction("BarList", "Bars");
+        }
+
+        public ActionResult AddBeers(int? id)
+        {
+            AddBeerViewModel Beers = new AddBeerViewModel();
+            Beers.BarId = (int)id;
+            List<Beer> AvailableBeers = new List<Beer>();
+            List<SelectListItem> AvailableBeerNames = new List<SelectListItem>();
+            List<Beer> BeerList = db.Beers.OrderBy(x => x.BeerName).ToList();
+            List<Distributor> distributors = db.Distributors.ToList();
+            List<Distributor_Beer> distributor_beer = db.Distributor_Beers.ToList();
+            List<Beer> DistBeerList = new List<Beer>();
+            List<int> BeerIds = new List<int>();
+            var currentUserId = User.Identity.GetUserId();
+            var currentDist = (from d in distributors where d.UserId == currentUserId select d.DistributorId).FirstOrDefault();
+            List<Bar_Beer> MyBeerIds = db.Bar_Beers.Where(x => x.BarId == Beers.BarId).ToList();
+            for (int i = 0; i < distributor_beer.Count; i++)
+            {
+                if (distributor_beer[i].DistributorId == currentDist)
+                {
+                    BeerIds.Add(distributor_beer[i].BeerId);
+                }
+            }
+            for (int h = 0; h < BeerList.Count; h++)
+            {
+                for (int j = 0; j < BeerIds.Count; j++)
+                {
+                    if (BeerIds[j] == BeerList[h].BeerId)
+                    {
+                        DistBeerList.Add(BeerList[h]);
+                    }
+                }
+            }
+            for (int i = 0; i < MyBeerIds.Count; i++)
+            {
+                for (int j = 0; j < BeerList.Count; j++)
+                {
+                    if (MyBeerIds[i].BeerId == BeerList[j].BeerId)
+                    {
+                        Beers.AddedBeers.Add(BeerList[j]);
+                    }
+                }
+            }
+            AvailableBeers = DistBeerList.Except(Beers.AddedBeers).OrderBy(x => x.BeerName).ToList();
+            for (int k = 0; k < AvailableBeers.Count; k++)
+            {
+                SelectListItem item = new SelectListItem
+                {
+                    Text = AvailableBeers[k].BeerName,
+                    Value = AvailableBeers[k].BeerId.ToString()
+                };
+                Beers.AvailableBeerNames.Add(item);
+
+            }
+
+            return View("AddBeers",Beers);
+        }
+
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddBeers(AddBeerViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Bar_Beer bar_beer = new Bar_Beer();
+                bar_beer.BeerId = model.BeerId;
+                bar_beer.BarId = model.BarId;
+                db.Bar_Beers.Add(bar_beer);
+                db.SaveChanges();
+                return RedirectToAction("BarList");
+            }
+
+            return RedirectToAction("BarList", "Bars");
+        }
+
+        //public ActionResult DisplayBarBeers()
+        //{
+
+        //}
         // GET: Bars/Details/5
         public ActionResult Details(int? id)
         {

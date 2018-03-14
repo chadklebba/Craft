@@ -18,18 +18,10 @@
         <div class="form-group">
             @Html.LabelFor(m=>m.AvailableBarNames, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.BarID, Model.AvailableBarNames , "--Select Bar From List--", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.BarID, Model.AvailableBarNames , "--Select A Bar From List--", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.AvailableBarNames, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -40,7 +32,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "BarList")
 </div>
 
 @section Scripts {

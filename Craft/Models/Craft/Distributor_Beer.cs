@@ -10,6 +10,8 @@ namespace Craft.Models.Craft
     public class Distributor_Beer
     {
         [Key]
+        public int Distributor_BeerId { get; set; }
+
         [ForeignKey("distributor")]
         public int DistributorId { get; set; }
         public virtual Distributor distributor { get; set; }

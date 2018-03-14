@@ -1,0 +1,96 @@
+﻿@model Craft.Models.CustBarSearchViewModel
+@{
+    ViewBag.Title = "MapView";
+}
+
+<h2>MapView</h2>
+
+<head>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<br />
+
+<table class="table">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BeerBars)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stringAddresses)
+        </th>
+        
+        <th></th>
+    </tr>
+    @foreach (var item in Model.BeerBars)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+  
+
+        </tr>
+    }
+</table>
+<br />
+@using (Html.BeginForm())
+{
+
+}
+
+<h2>Bar Locations</h2>
+
+<div id="map"></div>
+@section Scripts {
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0h7OvlFvbbVkRpma551VW8O--QReBpRE">
+    </script>
+    <script>
+        
+        var stringAddresses = @Html.Raw(Json.Encode(Model.stringAddresses));
+       
+
+        $(document).ready(function () {
+            var map;
+            var elevator;
+            var myOptions = {
+                zoom: 10,
+                center: new google.maps.LatLng(43.020484, -88.063190),
+                mapTypeId: 'terrain'
+            };
+            map = new google.maps.Map($('#map')[0], myOptions);
+
+            latLngList = new Array();
+            for (var x = 0; x < stringAddresses.length; x++) {
+                $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + stringAddresses[x] + '&sensor=false', null, function (data) {
+                    var p = data.results[0].geometry.location;
+                    var latlng = new google.maps.LatLng(p.lat, p.lng);
+                    latLngList[x] = {'lat' : p.lat, 'lng' : p.lng}
+                    new google.maps.Marker({
+                        position: latlng,
+
+                        map: map
+                    });
+                    map.center=latlng;
+                });
+            }
+          
+            });
+       
+    </script>
+
+}
+
+<br />
+<br />
+
+

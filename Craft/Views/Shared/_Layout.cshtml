@@ -26,7 +26,7 @@
                     @if (User.IsInRole("Customer"))
                     {
                         <li>@Html.ActionLink("Favorite Beers", "UserAccount", "Customers")</li>
-                        <li>@Html.ActionLink("Bar Search", "UserAccount", "Customers")</li>
+                        <li>@Html.ActionLink("Bar Search", "ChooseBeer", "Bars")</li>
                         <li>@Html.ActionLink("Beer Search", "UserAccount", "Customers")</li>
                     }
                     @if (User.IsInRole("Distributor"))

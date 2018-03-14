@@ -1,0 +1,30 @@
+﻿@model Craft.Models.CustBarSearchViewModel
+@{
+    ViewBag.Title = "CustBarSearch";
+}
+
+<h2>Beer Bar Search</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Select a beer and find a bar that serves it</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.BeerNames, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.BeerId, Model.BeerNames, "--Select A Beer From List--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BeerNames, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Select" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

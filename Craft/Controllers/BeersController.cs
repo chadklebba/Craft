@@ -22,6 +22,7 @@ namespace Craft.Controllers
             return View(db.Beers.ToList());
         }
 
+        
         public ActionResult BeerList()
         {
             List<Beer> BeerList = db.Beers.ToList();
@@ -92,7 +93,7 @@ namespace Craft.Controllers
                 distributor_beer.DistributorId = currentDistributor.DistributorId;
                 db.Distributor_Beers.Add(distributor_beer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("BeerList");
             }
 
             return View(beer);
