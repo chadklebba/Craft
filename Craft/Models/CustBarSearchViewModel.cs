@@ -18,6 +18,8 @@ namespace Craft.Models
         public List<Bar> BeerBars { get; set; }
         [Display(Name = "Address")]
         public List<string> stringAddresses { get; set; }
+        [Display(Name = "Legend")]
+        public string Legend { get; set; }
         public CustBarSearchViewModel()
         {
             BeerNames = new List<SelectListItem>();

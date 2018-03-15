@@ -262,6 +262,10 @@
     <Compile Include="Migrations\201803131826211_Distributor_BeerId.Designer.cs">
       <DependentUpon>201803131826211_Distributor_BeerId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803151516586_add legend to bar.cs" />
+    <Compile Include="Migrations\201803151516586_add legend to bar.Designer.cs">
+      <DependentUpon>201803151516586_add legend to bar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddBarViewModel.cs" />
@@ -428,6 +432,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803131826211_Distributor_BeerId.resx">
       <DependentUpon>201803131826211_Distributor_BeerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803151516586_add legend to bar.resx">
+      <DependentUpon>201803151516586_add legend to bar.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

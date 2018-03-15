@@ -14,5 +14,7 @@ namespace Craft.Models.Craft
         public string BarName { get; set; }
         public string Address { get; set; }
         public List<Beer> ListOfBeer { get; set; }
+        [Display(Name = "Legend")]
+        public string Legend { get; set; }
     }
 }

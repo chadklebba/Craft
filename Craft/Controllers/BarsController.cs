@@ -78,14 +78,18 @@ namespace Craft.Controllers
             string customerAddress = CurrentCustomer.Street + " " + CurrentCustomer.City + " " + CurrentCustomer.State + " " + CurrentCustomer.ZipCode;
             List<string> stringAddresses = new List<string>();
             List<Bar> BeerBars = new List<Bar>();
+            string labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            int index = 0;
             for ( int i = 0; i < Bar_Beers.Count; i++)
             {
                 for (int j = 0; j < AllBars.Count; j++)
                 {
                     if (Bar_Beers[i].BarId == AllBars[j].BarId)
                     {
+                        AllBars[j].Legend = labels[index].ToString();
                         BeerBars.Add(AllBars[j]);
                         stringAddresses.Add(AllBars[j].Address);
+                        index++;
                     }
                 }
                 

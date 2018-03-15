@@ -20,6 +20,9 @@
 
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Legend)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.BeerBars)
         </th>
         <th>
@@ -28,16 +31,22 @@
         
         <th></th>
     </tr>
+
     @foreach (var item in Model.BeerBars)
     {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Legend)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BarName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-  
+            <td>
+                <a href="https://www.google.com/maps/dir/43.0341312,-87.9118753/@item.Address">Directions</a>
+            </td>
 
         </tr>
     }
@@ -57,8 +66,8 @@
     <script>
         
         var stringAddresses = @Html.Raw(Json.Encode(Model.stringAddresses));
-       
-
+        var BeerBars = @Html.Raw(Json.Encode(Model.BeerBars));       
+        
         $(document).ready(function () {
             var map;
             var elevator;
@@ -69,19 +78,22 @@
             };
             map = new google.maps.Map($('#map')[0], myOptions);
 
-            latLngList = new Array();
+            var labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var index = 0;
             for (var x = 0; x < stringAddresses.length; x++) {
+                var barTitle = BeerBars[index].BarName;
                 $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + stringAddresses[x] + '&sensor=false', null, function (data) {
                     var p = data.results[0].geometry.location;
                     var latlng = new google.maps.LatLng(p.lat, p.lng);
-                    latLngList[x] = {'lat' : p.lat, 'lng' : p.lng}
                     new google.maps.Marker({
                         position: latlng,
-
+                        label: labels[index++],
+                        //title: BeerBars[index].BarName,
                         map: map
                     });
                     map.center=latlng;
                 });
+
             }
           
             });
