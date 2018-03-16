@@ -13,6 +13,9 @@
 <table class="table">
     <tr>
         <th>
+            <p>Fav #</p>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.BeerName)
         </th>
         <th>
@@ -31,6 +34,9 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Favorite)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.BeerName)
             </td>
             <td>
@@ -44,8 +50,6 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.BeerId }) |
-                @Html.ActionLink("Add to Bar", "AddtoBar", new { id = item.BeerId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.BeerId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.BeerId })
             </td>
         </tr>

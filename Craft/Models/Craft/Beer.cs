@@ -15,6 +15,8 @@ namespace Craft.Models.Craft
         public string Description { get; set; }
         public string Type { get; set; }
         public double ABV { get; set; }
-
+        public int Favorite { get; set; }
+        [Display(Name = "New Release")]
+        public bool NewRelease { get; set; }
     }
 }

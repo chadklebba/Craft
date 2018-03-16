@@ -201,6 +201,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DistributorsController.cs" />
     <Compile Include="Controllers\Distributor_BeerController.cs" />
+    <Compile Include="Controllers\FavoritesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -266,6 +267,26 @@
     <Compile Include="Migrations\201803151516586_add legend to bar.Designer.cs">
       <DependentUpon>201803151516586_add legend to bar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803151623380_adding favorites to db.cs" />
+    <Compile Include="Migrations\201803151623380_adding favorites to db.Designer.cs">
+      <DependentUpon>201803151623380_adding favorites to db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803152032467_test.cs" />
+    <Compile Include="Migrations\201803152032467_test.Designer.cs">
+      <DependentUpon>201803152032467_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803161642146_added favorite to beer.cs" />
+    <Compile Include="Migrations\201803161642146_added favorite to beer.Designer.cs">
+      <DependentUpon>201803161642146_added favorite to beer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803162002260_New release.cs" />
+    <Compile Include="Migrations\201803162002260_New release.Designer.cs">
+      <DependentUpon>201803162002260_New release.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803162003497_New release to bar.cs" />
+    <Compile Include="Migrations\201803162003497_New release to bar.Designer.cs">
+      <DependentUpon>201803162003497_New release to bar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddBarViewModel.cs" />
@@ -279,6 +300,7 @@
     <Compile Include="Models\Craft\Distributor_Beer.cs" />
     <Compile Include="Models\Craft\Favorite.cs" />
     <Compile Include="Models\CustBarSearchViewModel.cs" />
+    <Compile Include="Models\FavoritesViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -287,8 +309,11 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CapitolDist.png" />
     <Content Include="Content\craft.jpeg" />
     <Content Include="Content\craft2.jpeg" />
+    <Content Include="Content\CRAFT3.jpeg" />
+    <Content Include="Content\CrispinRose.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -378,6 +403,14 @@
     <Content Include="Views\Bars\AddBars.cshtml" />
     <Content Include="Views\Bars\CustBarSearch.cshtml" />
     <Content Include="Views\Bars\MapView.cshtml" />
+    <Content Include="Views\Favorites\AddFavorites.cshtml" />
+    <Content Include="Views\Favorites\Create.cshtml" />
+    <Content Include="Views\Favorites\Delete.cshtml" />
+    <Content Include="Views\Favorites\Details.cshtml" />
+    <Content Include="Views\Favorites\Edit.cshtml" />
+    <Content Include="Views\Favorites\Index.cshtml" />
+    <Content Include="Views\Favorites\AddToFavorites.cshtml" />
+    <Content Include="Views\Beers\NewReleases.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -435,6 +468,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803151516586_add legend to bar.resx">
       <DependentUpon>201803151516586_add legend to bar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803151623380_adding favorites to db.resx">
+      <DependentUpon>201803151623380_adding favorites to db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803152032467_test.resx">
+      <DependentUpon>201803152032467_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803161642146_added favorite to beer.resx">
+      <DependentUpon>201803161642146_added favorite to beer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803162002260_New release.resx">
+      <DependentUpon>201803162002260_New release.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803162003497_New release to bar.resx">
+      <DependentUpon>201803162003497_New release to bar.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

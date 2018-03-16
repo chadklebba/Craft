@@ -26,5 +26,23 @@ textarea {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 550px ;
+    height: 400px ;
 }
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+}
+
+  

@@ -41,5 +41,6 @@ namespace Craft.Models
         public System.Data.Entity.DbSet<Craft.Distributor_Bar> Distributor_Bars { get; set; }
 
         public System.Data.Entity.DbSet<Craft.Bar_Beer> Bar_Beers { get; set; }
+        public System.Data.Entity.DbSet<Craft.Favorite> Favorites { get; set; }
     }
 }

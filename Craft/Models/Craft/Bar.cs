@@ -16,5 +16,6 @@ namespace Craft.Models.Craft
         public List<Beer> ListOfBeer { get; set; }
         [Display(Name = "Legend")]
         public string Legend { get; set; }
+        
     }
 }

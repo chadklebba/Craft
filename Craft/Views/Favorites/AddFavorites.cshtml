@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Craft.Models.Craft.Beer>
+
+@{
+    ViewBag.Title = "Favorites";
+}
+
+<h2>Favorites</h2>
+<p class="btn btn-default">
+    @Html.ActionLink("Favorite a Beer", "AddToFavorites")
+</p>
+<br />
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BeerName)
+        </th>
+       
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeerName)
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "RemoveBeer", new { id = item.BeerId })
+            </td>
+        </tr>
+    }
+
+</table>

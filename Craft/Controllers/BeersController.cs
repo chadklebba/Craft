@@ -29,6 +29,7 @@ namespace Craft.Controllers
             List<Distributor> distributors = db.Distributors.ToList();
             List<Distributor_Beer> distributor_beer = db.Distributor_Beers.ToList();
             List<Beer> DistBeerList = new List<Beer>();
+            List<Favorite> Fav = new List<Favorite>();
             List<int> BeerIds = new List<int>();
             var currentUserId = User.Identity.GetUserId();
             var currentDist = (from d in distributors where d.UserId == currentUserId select d.DistributorId).FirstOrDefault();
@@ -45,12 +46,22 @@ namespace Craft.Controllers
                 {
                     if(BeerIds[j] == BeerList[h].BeerId)
                     {
+                        var Id = BeerList[h].BeerId;
+                        Fav = db.Favorites.Where(x => x.BeerId == Id).ToList();
+                        BeerList[h].Favorite = Fav.Count;
                         DistBeerList.Add(BeerList[h]);
+
                     }
                 }
             }
             
             return View(DistBeerList);
+        }
+
+        public ActionResult NewReleases()
+        {
+            List<Beer> NewBeer = db.Beers.Where(x => x.NewRelease == true).ToList();
+            return View(NewBeer);
         }
 
         // GET: Beers/Details/5
@@ -79,7 +90,7 @@ namespace Craft.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BeerName,BeerId,Description,Type,ABV")] Beer beer)
+        public ActionResult Create([Bind(Include = "BeerName,BeerId,Description,Type,ABV,NewRelease")] Beer beer)
         {
             List<Distributor> AllDistributors = db.Distributors.ToList();
             string currentUserId = User.Identity.GetUserId();
@@ -119,13 +130,13 @@ namespace Craft.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BeerId,Description,Type,ABV")] Beer beer)
+        public ActionResult Edit([Bind(Include = "BeerName,BeerId,Description,Type,ABV")] Beer beer)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(beer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("BeerList");
             }
             return View(beer);
         }
@@ -153,7 +164,7 @@ namespace Craft.Controllers
             Beer beer = db.Beers.Find(id);
             db.Beers.Remove(beer);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("BeerList");
         }
 
         protected override void Dispose(bool disposing)

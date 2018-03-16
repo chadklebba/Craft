@@ -231,7 +231,7 @@ namespace Craft.Controllers
                 bar_beer.BarId = model.BarId;
                 db.Bar_Beers.Add(bar_beer);
                 db.SaveChanges();
-                return RedirectToAction("BarList");
+                return RedirectToAction("AddBeers");
             }
 
             return RedirectToAction("BarList", "Bars");
