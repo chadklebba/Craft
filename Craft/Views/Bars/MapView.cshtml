@@ -3,7 +3,7 @@
     ViewBag.Title = "MapView";
 }
 
-<h2>MapView</h2>
+<h3>Map View</h3>
 
 <head>
     <style>
@@ -45,7 +45,7 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                <a href="https://www.google.com/maps/dir/43.0341312,-87.9118753/@item.Address">Directions</a>
+                <a href="https://www.google.com/maps/dir/@Model.CustAddress/@item.Address">Directions</a>
             </td>
 
         </tr>
@@ -57,7 +57,7 @@
 
 }
 
-<h2>Bar Locations</h2>
+<h3>Bar Locations</h3>
 
 <div id="map"></div>
 @section Scripts {

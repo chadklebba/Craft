@@ -10,7 +10,7 @@ namespace Craft.Models
 {
     public class CustBarSearchViewModel
     {
-        [Display(Name = "Select a Beer")]
+        [Display(Name = "Choose a Beer")]
         public List<SelectListItem> BeerNames { get; set; }
         public string BeerId { get; set; }
         public int BarId { get; set; }
@@ -20,6 +20,7 @@ namespace Craft.Models
         public List<string> stringAddresses { get; set; }
         [Display(Name = "Legend")]
         public string Legend { get; set; }
+        public string CustAddress { get; set; }
         public CustBarSearchViewModel()
         {
             BeerNames = new List<SelectListItem>();

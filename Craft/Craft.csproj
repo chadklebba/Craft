@@ -287,6 +287,10 @@
     <Compile Include="Migrations\201803162003497_New release to bar.Designer.cs">
       <DependentUpon>201803162003497_New release to bar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803172117166_added CustAddress.cs" />
+    <Compile Include="Migrations\201803172117166_added CustAddress.Designer.cs">
+      <DependentUpon>201803172117166_added CustAddress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddBarViewModel.cs" />
@@ -483,6 +487,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803162003497_New release to bar.resx">
       <DependentUpon>201803162003497_New release to bar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803172117166_added CustAddress.resx">
+      <DependentUpon>201803172117166_added CustAddress.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -130,7 +130,7 @@ namespace Craft.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BeerName,BeerId,Description,Type,ABV")] Beer beer)
+        public ActionResult Edit([Bind(Include = "BeerName,BeerId,Description,Type,ABV,NewRelease")] Beer beer)
         {
             if (ModelState.IsValid)
             {

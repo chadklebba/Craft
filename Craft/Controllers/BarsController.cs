@@ -80,6 +80,7 @@ namespace Craft.Controllers
             List<Bar> BeerBars = new List<Bar>();
             string labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             int index = 0;
+            Model.CustAddress = customerAddress;
             for ( int i = 0; i < Bar_Beers.Count; i++)
             {
                 for (int j = 0; j < AllBars.Count; j++)
